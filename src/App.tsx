@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { deleteStudent } from "./Delete";
 
 interface IStudent {
   studentsFirstName: string;
@@ -22,9 +23,9 @@ function App() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newStudent),
-      })
-      const data = await response.json()
-      console.log(data)
+      });
+      const data = await response.json();
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -49,7 +50,10 @@ function App() {
       <ul>
         {students?.length > 0 &&
           students.map((student: IStudent) => (
-            <li key={student._id}>{student.studentsFirstName}</li>
+            <li key={student._id}>
+              <p>{student.studentsFirstName}</p>
+              <button onClick={() => deleteStudent(student._id)}>Delete</button>
+            </li>
           ))}
       </ul>
       <form action="">
